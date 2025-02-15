@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DigitalWizard\DoctrineORMHydrationModule;
+namespace DigitalWizard\DoctrineHydrationModule;
 
 /**
  * Class Module

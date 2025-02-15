@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DigitalWizard\DoctrineORMHydrationModule\Service;
+namespace DigitalWizard\DoctrineHydrationModule\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;

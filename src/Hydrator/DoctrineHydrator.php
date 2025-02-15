@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DigitalWizard\DoctrineORMHydrationModule\Hydrator;
+namespace DigitalWizard\DoctrineHydrationModule\Hydrator;
 
 use Laminas\Hydrator\HydratorInterface;
 
