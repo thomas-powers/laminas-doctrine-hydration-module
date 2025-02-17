@@ -13,13 +13,9 @@ use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
 use Laminas\Hydrator\Filter\FilterInterface;
-use Laminas\Hydrator\Filter\FilterEnabledInterface;
 use Laminas\Hydrator\HydratorInterface;
 use Laminas\Hydrator\NamingStrategy\NamingStrategyInterface;
-use Laminas\Hydrator\NamingStrategy\NamingStrategyEnabledInterface;
 use Laminas\Hydrator\Strategy\StrategyInterface;
-use Laminas\Hydrator\Strategy\StrategyEnabledInterface;
-use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
@@ -288,7 +284,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         array $config,
         ObjectManager $objectManager
     ): void {
-        if (!($hydrator instanceof NamingStrategyEnabledInterface) || !isset($config['naming_strategy'])) {
+        if (!isset($config['naming_strategy'])) {
             return;
         }
 
@@ -326,8 +322,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         array $config,
         ObjectManager $objectManager
     ): void {
-        if (!$hydrator instanceof StrategyEnabledInterface
-            || !isset($config['strategies'])
+        if (!isset($config['strategies'])
             || !is_array($config['strategies'])
         ) {
             return;
@@ -372,8 +367,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         array $config,
         ObjectManager $objectManager
     ): void {
-        if (!$hydrator instanceof FilterEnabledInterface
-            || !isset($config['filters'])
+        if (!isset($config['filters'])
             || !is_array($config['filters'])
         ) {
             return;
