@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManager;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use DoctrineModule\Stdlib\Hydrator;
 use Doctrine\Laminas\Hydrator\DoctrineObject;
-use Interop\Container\ContainerInterface;
 use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
 use Laminas\Hydrator\Filter\FilterInterface;
