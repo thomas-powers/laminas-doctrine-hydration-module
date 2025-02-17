@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace DigitalWizard\DoctrineHydrationModule\Service;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use DigitalWizard\DoctrineHydrationModule\Hydrator\DoctrineHydrator;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use DoctrineModule\Stdlib\Hydrator;
 use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Interop\Container\ContainerInterface;
-use ApiSkeletons\DoctrineORMHydrationModule\Hydrator\DoctrineHydrator;
 use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
 use Laminas\Hydrator\Filter\FilterInterface;
