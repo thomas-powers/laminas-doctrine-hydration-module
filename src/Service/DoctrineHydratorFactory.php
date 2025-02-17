@@ -23,6 +23,7 @@ use Laminas\Hydrator\Strategy\StrategyEnabledInterface;
 use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -111,11 +112,11 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @throws ServiceNotFoundException
      */
     public function canCreateServiceWithName(
-        ServiceLocatorInterface $hydratorManager,
+        ServiceLocatorInterface $serviceLocator,
         $name,
         $requestedName
     ): bool {
-        return $this->canCreate($hydratorManager->getServiceLocator(), $requestedName);
+        return $this->canCreate($serviceLocator, $requestedName);
     }
 
     /**
@@ -183,11 +184,11 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @return DoctrineHydrator
      */
     public function createServiceWithName(
-        ServiceLocatorInterface $hydratorManager,
+        ServiceLocatorInterface $serviceLocator,
         $name,
         $requestedName
     ): DoctrineHydrator {
-        return $this($hydratorManager->getServiceLocator(), $requestedName);
+        return $this($serviceLocator, $requestedName);
     }
 
     /**
