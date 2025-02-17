@@ -20,6 +20,9 @@ use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class DoctrineHydratorFactory.
@@ -45,7 +48,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      *
      * @return bool
      *
-     * @throws ServiceNotFoundException
+     * @throws ServiceNotFoundException|NotFoundExceptionInterface|ContainerExceptionInterface
      */
     public function canCreate(ContainerInterface $container, $requestedName): bool
     {
@@ -98,13 +101,13 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      *
      * Provided for backwards compatiblity; proxies to canCreate().
      *
-     * @param ServiceLocatorInterface $hydratorManager
+     * @param ServiceLocatorInterface $serviceLocator
      * @param $name
      * @param $requestedName
      *
      * @return bool
      *
-     * @throws ServiceNotFoundException
+     * @throws ServiceNotFoundException|NotFoundExceptionInterface|ContainerExceptionInterface
      */
     public function canCreateServiceWithName(
         ServiceLocatorInterface $serviceLocator,
@@ -122,6 +125,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param null|array         $options
      *
      * @return DoctrineHydrator
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface|NotFoundExceptionInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): DoctrineHydrator
     {
@@ -147,7 +151,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         if ($useCustomHydrator) {
             try {
                 $extractService = $container->build($config['hydrator'], $config);
-            } catch (ServiceNotFoundException $e) {
+            } catch (ServiceNotFoundException|NotFoundExceptionInterface|ContainerExceptionInterface $e) {
                 $extractService = $container->get($config['hydrator']);
             }
 
@@ -172,11 +176,12 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $hydratorManager
+     * @param ServiceLocatorInterface $serviceLocator
      * @param $name
      * @param $requestedName
      *
      * @return DoctrineHydrator
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface|NotFoundExceptionInterface
      */
     public function createServiceWithName(
         ServiceLocatorInterface $serviceLocator,
@@ -208,7 +213,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      *
      * @return ObjectManager
      *
-     * @throws ServiceNotCreatedException
+     * @throws NotFoundExceptionInterface|ContainerExceptionInterface
      */
     protected function loadObjectManager(ContainerInterface $container, array $config): ObjectManager
     {
@@ -239,7 +244,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @return HydratorInterface
+     * @return HydratorInterface|DoctrineObject
      */
     protected function loadDoctrineModuleHydrator(
         ContainerInterface $container,
@@ -256,7 +261,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @throws ServiceNotCreatedException
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface
      */
     public function configureHydrator(
         AbstractHydrator $hydrator,
@@ -275,7 +280,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @throws ServiceNotCreatedException
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface
      */
     public function configureHydratorNamingStrategy(
         AbstractHydrator $hydrator,
@@ -313,7 +318,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @throws ServiceNotCreatedException
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface
      */
     protected function configureHydratorStrategies(
         AbstractHydrator $hydrator,
@@ -358,7 +363,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @throws ServiceNotCreatedException
+     * @throws ServiceNotCreatedException|ContainerExceptionInterface
      */
     protected function configureHydratorFilters(
         AbstractHydrator $hydrator,
