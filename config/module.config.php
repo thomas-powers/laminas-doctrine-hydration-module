@@ -3,7 +3,7 @@
 return [
     'hydrators' => [
         'abstract_factories' => [
-            'DigitalWizard\DoctrineORMHydrationModule\Service\DoctrineHydratorFactory',
+            'DigitalWizard\DoctrineHydrationModule\Service\DoctrineHydratorFactory',
         ],
     ],
 ];
