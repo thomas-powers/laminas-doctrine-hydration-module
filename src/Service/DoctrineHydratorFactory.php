@@ -224,15 +224,14 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @return null|HydratorInterface
+     * @return string|null
      */
     protected function loadEntityHydrator(
         ContainerInterface $container,
         array $config,
         ObjectManager $objectManager
-    ): ?HydratorInterface {
-        $objectManagerType = $this->getObjectManagerType($objectManager);
-        return $objectManagerType ?? null;
+    ): ?string {
+        return $this->getObjectManagerType($objectManager) ?? null;
     }
 
     /**
