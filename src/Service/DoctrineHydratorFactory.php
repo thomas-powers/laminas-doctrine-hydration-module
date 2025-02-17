@@ -8,7 +8,6 @@ use DigitalWizard\DoctrineHydrationModule\Hydrator\DoctrineHydrator;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
-use DoctrineModule\Stdlib\Hydrator;
 use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
@@ -99,7 +98,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
     /**
      * Determine if we can create a service with name. (v2)
      *
-     * Provided for backwards compatiblity; proxies to canCreate().
+     * Provided for backwards compatibility; proxies to canCreate().
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @param $name
@@ -122,7 +121,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      *
      * @param ContainerInterface $container
      * @param $requestedName
-     * @param null|array         $options
+     * @param null|array $options
      *
      * @return DoctrineHydrator
      * @throws ServiceNotCreatedException|ContainerExceptionInterface|NotFoundExceptionInterface
@@ -137,17 +136,7 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         $extractService = null;
         $hydrateService = null;
 
-        $useEntityHydrator = (
-            array_key_exists('use_generated_hydrator', $config)
-            && $config['use_generated_hydrator']
-        );
-
         $useCustomHydrator = (array_key_exists('hydrator', $config));
-
-        if ($useEntityHydrator) {
-            $hydrateService = $this->loadEntityHydrator($container, $config, $objectManager);
-        }
-
         if ($useCustomHydrator) {
             try {
                 $extractService = $container->build($config['hydrator'], $config);
@@ -161,8 +150,8 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
         # Use DoctrineModuleHydrator by default
         if (!isset($extractService, $hydrateService)) {
             $doctrineModuleHydrator = $this->loadDoctrineModuleHydrator($container, $config, $objectManager);
-            $extractService = ($extractService ?: $doctrineModuleHydrator);
-            $hydrateService = ($hydrateService ?: $doctrineModuleHydrator);
+            $extractService = $doctrineModuleHydrator;
+            $hydrateService = $extractService;
         }
 
         $this->configureHydrator($extractService, $container, $config, $objectManager);
@@ -229,14 +218,14 @@ class DoctrineHydratorFactory implements AbstractFactoryInterface
      * @param array $config
      * @param ObjectManager $objectManager
      *
-     * @return string|null
+     * @return null
      */
     protected function loadEntityHydrator(
         ContainerInterface $container,
         array $config,
         ObjectManager $objectManager
-    ): ?string {
-        return $this->getObjectManagerType($objectManager) ?? null;
+    ): null {
+        return null;
     }
 
     /**
